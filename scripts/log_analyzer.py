@@ -2,7 +2,7 @@ from collections import Counter
 
 failed_ips = []
 
-with open("sample.log", "r") as file:
+with open("data/sample.log", "r") as file:
     for line in file:
         if "Failed password" in line:
             parts = line.split()
