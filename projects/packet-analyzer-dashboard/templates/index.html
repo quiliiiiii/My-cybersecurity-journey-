@@ -1,0 +1,110 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Packet Analyzer Dashboard</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <header class="header">
+        <h1>Packet Analyzer Dashboard</h1>
+        <p>
+            Monitoring network traffic and identifying suspicious activity.
+        </p>
+    </header>
+
+    <main class="container">
+
+        <section class="dashboard-cards">
+
+            <div class="card">
+                <h2>{{ total_packets }}</h2>
+                <p>Total Packets</p>
+            </div>
+
+            <div class="card">
+                <h2>{{ normal_packets }}</h2>
+                <p>Normal Traffic</p>
+            </div>
+
+            <div class="card alert-card">
+                <h2>{{ suspicious_packets }}</h2>
+                <p>Suspicious Traffic</p>
+            </div>
+
+        </section>
+
+        <section class="table-section">
+
+            <h2>Traffic Analysis</h2>
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>Source IP</th>
+                        <th>Destination IP</th>
+                        <th>Protocol</th>
+                        <th>Port</th>
+                        <th>Status</th>
+                        <th>Analysis</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    {% for packet in packets %}
+
+                    <tr>
+
+                        <td>{{ packet.source_ip }}</td>
+
+                        <td>{{ packet.destination_ip }}</td>
+
+                        <td>{{ packet.protocol }}</td>
+
+                        <td>{{ packet.port }}</td>
+
+                        <td>
+
+                            {% if packet.status == "Suspicious" %}
+
+                            <span class="status suspicious">
+                                Suspicious
+                            </span>
+
+                            {% else %}
+
+                            <span class="status normal">
+                                Normal
+                            </span>
+
+                            {% endif %}
+
+                        </td>
+
+                        <td>{{ packet.reason }}</td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </section>
+
+    </main>
+
+</body>
+
+</html>
+```
